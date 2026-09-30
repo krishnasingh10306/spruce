@@ -1,0 +1,5 @@
+*.pdf
+WhatsApp Image*.jpeg
+.venv/
+__pycache__/
+*.py[cod]
