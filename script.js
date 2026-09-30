@@ -61,6 +61,34 @@ document.querySelectorAll(".site-search-input").forEach((input) => {
   });
 });
 
+const heroVideo = document.querySelector(".hero-video");
+const heroVideoToggle = document.querySelector(".hero-video-toggle");
+
+if (heroVideo && heroVideoToggle) {
+  const updateVideoToggle = () => {
+    const action = heroVideo.paused ? "Play" : "Pause";
+    heroVideoToggle.textContent = `${action} video`;
+    heroVideoToggle.setAttribute("aria-label", `${action} background video`);
+  };
+
+  heroVideo.addEventListener("play", updateVideoToggle);
+  heroVideo.addEventListener("pause", updateVideoToggle);
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    updateVideoToggle();
+  } else {
+    heroVideo.play().catch(updateVideoToggle);
+  }
+
+  heroVideoToggle.addEventListener("click", () => {
+    if (heroVideo.paused) {
+      heroVideo.play().catch(updateVideoToggle);
+    } else {
+      heroVideo.pause();
+    }
+  });
+}
+
 const revealItems = document.querySelectorAll(".product-card, .industry-card, .engineering-copy, .network-visual");
 if ("IntersectionObserver" in window) {
   const revealObserver = new IntersectionObserver((entries, observer) => {
